@@ -31,6 +31,12 @@ while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
         $contacts[$row['name']] = $row;
 }
 
+$res = $db->query('select * from etc');
+$etc = array();
+while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
+        $etc[$row['name']] = $row;
+}
+
 function rmservicefromhost($db,$host,$ccommand) {
     global $error, $servicesbyhost;
     if (! normaltext($host)) {

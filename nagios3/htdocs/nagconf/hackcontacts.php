@@ -67,8 +67,15 @@ You may also configure a telegram bot to send messages to.
 <DIV ALIGN=CENTER CLASS='statusTitle'>Logged in as <?php echo $admin_user ?></DIV>
 <TABLE border=0 width=100%>
 <TR><TD valign=top width=50%>
-</TD><TD valign=top width=50%>
+<FORM method=POST name=telegram>
+<TABLE border=0 CLASS=status width=100%>
+<TR><TD colspan=2 CLASS=statusTitle>Telegram Bot Information</TD</TR>
+<TR><TH width=35% CLASS=status>API KEY</TH><TD class=statusODD><input type=text name=api_key value=<?php echo $etc['api_key']; ?>></TD></TR>
+<TR><TH width=35% CLASS=status>CHAT ID</TH><TD class=statusODD><input type=text name=chat_id value=<?php echo $etc['chat_id']; ?>></TD></TR>
+<TR><TD cellspan=2><INPUT type=submit name=UpdateTEL value="Update Telegram" /></TD></TR>
+</TABLE></FORM>
 
+</TD><TD valign=top width=50%>
 <FORM method=POST name=chpass value=chpass>
 <TABLE border=0 CLASS=status width=100%>
 <TR><TD colspan=2 CLASS=statusTitle>Login Information</TD</TR>
@@ -76,7 +83,7 @@ You may also configure a telegram bot to send messages to.
 <TR><TH width=35% CLASS=status>Old Password:</TH><TD class=statusODD><input type=password name=oldpw></TD></TR>
 <TR><TH width=35% CLASS=status>New Password:</TH><TD class=statusODD><input type=password name=newpw1></TD></TR>
 <TR><TH width=35% CLASS=status>Retype New Password:</TH><TD class=statusODD><input type=password name=newpw2></TD></TR>
-<TR><TD cellspan=2><INPUT type='submit' value='UpdatePW' /></TD></TR>
+<TR><TD cellspan=2><INPUT type=submit name=UpdatePW value="Update Password" /></TD></TR>
 </TABLE></FORM>
 </TD></TR></TABLE>
 
