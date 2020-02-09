@@ -40,6 +40,11 @@ $link_target="main";
 			<li class="menuli_style1"><a href="/nagconf/hackcontacts.php" target="main">Contacts</a></li>
 			<li class="menuli_style1"><a href="/nagconf/hackread.php" target="main">Help</a></li>
 		</ul>
+        <h2>Danger Zone</h2>
+        <ul>
+			<li class="menuli_style1"><a href="/nagconf/checker.php" target="main">Dry Run</a></li>
+			<li class="menuli_style1"><a href="/nagconf/activate.php" target="main">Acivate Configuration</a></li>
+        </ul>
 	</div>
 </body>
 </html>
