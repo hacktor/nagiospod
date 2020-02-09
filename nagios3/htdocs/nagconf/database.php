@@ -34,7 +34,7 @@ while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
 $res = $db->query('select * from etc');
 $etc = array();
 while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
-        $etc[$row['name']] = $row;
+        $etc[$row['key']] = $row['value'];
 }
 
 function rmservicefromhost($db,$host,$ccommand) {
