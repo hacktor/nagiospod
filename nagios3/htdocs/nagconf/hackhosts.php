@@ -26,7 +26,6 @@ if (isset($_POST['addhost']) and isset($_POST['hostname']) and isset($_POST['hos
             $a3 = (isset($_POST['arg3']) ? $_POST['arg3'] : '');
             addhost($db,$_POST['hostname'],$_POST['hostalias'],$_POST['hostaddress']);
             addservice2host($db,$_POST['hostname'],$cc['name'],$_POST['descr'],$cc['argnr'],$a1,$a2,$a3,$cc['id']);
-            $error[] = "Host ".$_POST['hostname']."  with service " .$cc['name']. " and " .$cc['argnr']. " arguments added";
         } else {
             $ccargs = $cc;
             $hostargs = $_POST['hostname'];
@@ -55,8 +54,6 @@ if (isset($_POST['addsrvtohost'])) {
     $a2 = (isset($_POST['arg2']) ? $_POST['arg2'] : '');
     $a3 = (isset($_POST['arg3']) ? $_POST['arg3'] : '');
     addservice2host($db,$_POST['hostname'],$cc['name'],$_POST['descr'],$cc['argnr'],$a1,$a2,$a3,$cc['id']);
-    $error[] = "Host ".$_POST['hostname']."  with service " .$cc['name']. "and " .$cc['argnr']. " arguments added";
-    
 }
 
 # Remove a service from a host
