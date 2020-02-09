@@ -1,0 +1,19 @@
+#!/bin/bash
+#
+# argv: <service|host> "CONTACTPAGER" "$SERVICEDESC$" "$HOSTALIAS$" "$SERVICESTATE$" "$LONGDATETIME$" "$SERVICEOUTPUT$"
+#
+# curl 'https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID&text="Hello World"'
+#
+# send a telegram notification from nagios
+
+IFS=';' read -r TOKEN CHAT_ID <<< "$2"
+
+echo "TOKEN=$API_KEY"
+echo "CHAT_ID=$CHAT_ID"
+
+[ "$1" == "service" ] && \
+/usr/bin/curl https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID\&text="$3 on $4 is $5 at $6: $7"
+
+[ "$1" == "host" ] && \
+/usr/bin/curl https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID\&text="$3 is $4 at $5"
+
