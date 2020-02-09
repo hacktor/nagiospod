@@ -112,7 +112,6 @@ Check updates to your configuration with the Dry-Run button before you hit the U
 <br /><br />
 
 <?php
-print_r($_POST);
 if (isset($ccargs)) {
     echo "<DIV ALIGN=CENTER CLASS='statusTitle'>Please specify parameters for ". $ccargs['descr'] ." on ". $hostargs ."</DIV>\n";
     echo "<FORM method=POST name=args><TABLE border=0 width=100% CLASS=status><TR>";
