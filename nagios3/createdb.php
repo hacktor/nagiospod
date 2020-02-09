@@ -1,7 +1,6 @@
 <?php
 
-#$db = new SQLite3('/etc/nagios3/sqlite.db');
-$db = new SQLite3('/tmp/sqlite.db');
+$db = new SQLite3('/etc/nagios3/sqlite.db');
 
 $sql = <<<'SQL'
 CREATE TABLE IF NOT EXISTS hosts (
