@@ -54,7 +54,6 @@ if (isset($_POST['contactadd']) and ($_POST['contactadd'] == 'Add')) {
 foreach ($error as $ln) { echo "<font color=red>" .$ln. "</font><br>\n"; }
 foreach ($warning as $ln) { echo "<font color=orange>" .$ln. "</font><br>\n"; }
 foreach ($good as $ln) { echo "<font color=green>" .$ln. "</font><br>\n"; }
-print_r($_POST);
 ?>
 <BR /><BR />
 <DIV CLASS='infoBoxTitle'>Hacking Contact Information</DIV>
