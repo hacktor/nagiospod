@@ -28,29 +28,7 @@ while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
 $res = $db->query('select * from contacts');
 $contacts = array();
 while ($row = $res->fetchArray(SQLITE3_ASSOC)) {
-        $contacts[$row['id']] = $row;
-}
-
-function updateaddress($db,$addres,$zip,$city,$country,$admin_contact,$admin_tel,$admin_email) {
-    global $error;
-    if (! normaltext($addres)) {
-        $error[] = "Address contains illegal characters: ".$addres;
-    } elseif (! normaltext($zip)) {
-        $error[] = "ZIP code contains illegal characters: ".$zip;
-    } elseif (! normaltext($city)) {
-        $error[] = "City contains illegal characters: ".$city;
-    } elseif (! normaltext($country)) {
-        $error[] = "Coutry contains illegal characters: ".$country;
-    } elseif (! normaltext($admin_contact)) {
-        $error[] = "First Contact contains illegal characters: ".$admin_contact;
-    } elseif (! normaltext($admin_tel)) {
-        $error[] = "Phone number contains illegal characters: ".$admin_tel;
-    } elseif (! normaltext($admin_email)) {
-        $error[] = "Email Address contains illegal characters: ".$admin_email;
-    } else {
-        $q = $db->prepare("update customers set address = ?,zipcode = ?,city = ?,country = ?, admin_contact = ?,admin_tel = ?,admin_email = ?, hgid = 1");
-        $q->execute(array($addres,$zip,$city,$country,$admin_contact,$admin_tel,$admin_email));
-    }
+        $contacts[$row['name']] = $row;
 }
 
 function rmservicefromhost($db,$host,$ccommand) {
@@ -92,15 +70,18 @@ function rmhost($db,$name) {
     }
 }
 
-function rmcontact($db,$id) {
-    if (! is_numeric($id)) {
-        $error[] = "contact id not accepted";
+function rmcontact($db,$name) {
+    global $error,$contacts;
+    if (! normaltext($name)) {
+        $error[] = "contact name not accepted";
+    } elseif ($name === "nagiosadmin") {
+        $error[] = "Admin account can not be deleted. You can overwrite it with another email address";
     } else {
-        $q = $db->prepare('delete from contacts where id = ":id"');
-        $q->bindValue(':id',$id);
+        $q = $db->prepare('delete from contacts where name = :name');
+        $q->bindValue(':name',$name);
         $q->execute();
+        unset($contacts[$name]);
     }
-    unset($contacts[$id]);
 }
 
 function addhost($db,$name,$alias,$address) {
@@ -168,19 +149,20 @@ function addservice2host($db,$hostname,$srvname,$descr,$argnr,$arg1,$arg2,$arg3,
 }
 
 function addcontact($db,$name,$email,$telephone) {
-    global $error;
+    global $error,$contacts;
     if (! preg_match('/^[A-Za-z0-9 ]+$/', $name)) {
         $error[] = "Name/description not accepted: ".$name." (only alphanumerics and spaces allowed)";
     } elseif (! preg_match('/^[A-Za-z0-9\.\-]+\@[A-Za-z0-9]+\.[A-Za-z]+$/', $email)) {
         $error[] = "Email Address not accepted: ".$email;
-    } elseif (! preg_match('/^[0-9\+][0-9]+$/', $telephone)) {
+    } elseif (! normaltext($telephone)) {
         $error[] = "Telephone not accepted: ".$telephone." (only numbers and a starting '+' allowed)";
     } else {
-        $q = $db->prepare("insert into contacts (name,hgid,email,telephone) values (:name,1,:email,:tel,:time)");
+        $q = $db->prepare("replace into contacts (name,email,telephone) values (:name,:email,:tel)");
         $q->bindValue(':name', $name);
         $q->bindValue(':email', $email);
         $q->bindValue(':tel', $telephone);
         $q->execute();
+        $contacts[$name] = [ 'name' => $name, 'email' => $email, 'telephone' => $telephone ];
     }
 }
 

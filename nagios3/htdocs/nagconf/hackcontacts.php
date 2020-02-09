@@ -19,18 +19,6 @@ require_once 'htpasswd.inc';
 
 $pass_array=load_htpasswd();
 
-# Update address information
-if (isset($_POST['UpdateNAW']) && ($_POST['UpdateNAW'] == 'UpdateNAW')) {
-  $address	= isset($_POST['address']) ? hackvalidate($_POST['address']) : '';
-  $zip		= isset($_POST['zip']) ? hackvalidate($_POST['zip']) : '';
-  $city		= isset($_POST['city']) ? hackvalidate($_POST['city']) : '';
-  $country	= isset($_POST['country']) ? hackvalidate($_POST['country']) : '';
-  $admin_name	= isset($_POST['admin_contact']) ? hackvalidate($_POST['admin_contact']) : '';
-  $admin_tel	= isset($_POST['admin_tel']) ? hackvalidate($_POST['admin_tel']) : '';
-  $admin_email	= isset($_POST['admin_email']) ? hackvalidate($_POST['admin_email']) : '';
-  updateaddress($db,$hgid,$address,$zip,$city,$country,$admin_name,$admin_tel,$admin_email);
-}
-
 # Update password
 if (isset($_POST['oldpw'])) {
   if ($_POST['oldpw'] == $_SERVER['PHP_AUTH_PW']) {
@@ -53,43 +41,33 @@ if (isset($_POST['oldpw'])) {
 }
 
 # Remove Contact
-isset($_POST['removecontact']) && is_numeric($_POST['removecontact']) && rmcontact($db,$hgid,$_POST['removecontact']);
+isset($_POST['removecontact']) && rmcontact($db,$_POST['removecontact']);
 
 # Add Contact
 if (isset($_POST['contactadd']) and ($_POST['contactadd'] == 'Add')) {
   $name		= isset($_POST['contact_name_add']) ? hackvalidate($_POST['contact_name_add']) : ''; 
   $email	= isset($_POST['contact_email_add']) ? hackvalidate($_POST['contact_email_add']) : ''; 
   $telephone	= isset($_POST['contact_telephone_add']) ? hackvalidate($_POST['contact_telephone_add']) : ''; 
-  $timeperiod	= isset($_POST['timeperiod_id_add']) ? hackvalidate($_POST['timeperiod_id_add']) : ''; 
-  addcontact($db,$hgid,$name,$email,$telephone,$timeperiod);
+  addcontact($db,$name,$email,$telephone);
 }
 
 foreach ($error as $ln) { echo "<font color=red>" .$ln. "</font><br>\n"; }
 foreach ($warning as $ln) { echo "<font color=orange>" .$ln. "</font><br>\n"; }
 foreach ($good as $ln) { echo "<font color=green>" .$ln. "</font><br>\n"; }
-
+print_r($_POST);
 ?>
-
+<BR /><BR />
 <DIV CLASS='infoBoxTitle'>Hacking Contact Information</DIV>
 <DIV CLASS='infoBox'>
 Here is the place to add and remove email addresses to your monitoring configuration to send notifications to.<br />
-This page is still under construction but should have some basic functionality in a couple of days.
+You may also configure a telegram bot to send messages to.
 </DIV>
 <br />
 
-<DIV ALIGN=CENTER CLASS='statusTitle'>Contact information for <?php echo $admin_user ?></DIV>
-<FORM method=POST name=updatecustomer value=updatecustomer>
+<DIV ALIGN=CENTER CLASS='statusTitle'>Logged in as <?php echo $admin_user ?></DIV>
 <TABLE border=0 width=100%>
 <TR><TD valign=top width=50%>
-<TABLE border=0 CLASS=status width=100%>
-<TR><TD colspan=2 CLASS=statusTitle>Customer Information</TD</TR>
-</TABLE></FORM>
-
 </TD><TD valign=top width=50%>
-
-<TABLE border=0 CLASS=status width=100%>
-<TR><TD colspan=2 CLASS=statusTitle>Product Information</TD</TR>
-</TABLE>
 
 <FORM method=POST name=chpass value=chpass>
 <TABLE border=0 CLASS=status width=100%>
@@ -115,7 +93,7 @@ foreach($contacts as $contact) {
     echo "<TD CLASS=queueEVEN>" . $contact['name'] . "</TD>\n";
     echo "<TD CLASS=queueEVEN>" . $contact['email'] . "</TD>\n";
     echo "<TD CLASS=queueEVEN>" . $contact['telephone'] . "</TD>\n";
-    echo "<TD CLASS=queueEVEN><BUTTON type='submit' name=removecontact value=" . $contact['id'] . " ALT=Remove>\n";
+    echo "<TD CLASS=queueEVEN><BUTTON type='submit' name=removecontact value=" . $contact['name'] . " ALT=Remove>\n";
     echo "<IMG SRC='/nagios/images/disabled.gif'></BUTTON></TD></FORM></TR>\n";
 }
 ?>
