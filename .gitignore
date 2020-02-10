@@ -1,1 +1,3 @@
 nagios3/sqlite.db
+nagios3/test/*
+nagios3/objects/*
