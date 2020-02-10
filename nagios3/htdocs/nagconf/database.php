@@ -172,4 +172,15 @@ function addcontact($db,$name,$email,$telephone) {
     }
 }
 
+function addetc($db,$array) {
+    global $etc;
+    foreach ($array as $key => $value) {
+        $q = $db->prepare("replace into etc (key,value) values (:key,:value)");
+        $q->bindValue(':key', $key);
+        $q->bindValue(':value', $value);
+        $q->execute();
+        $etc[$key] = $value;
+    }
+}
+
 ?>

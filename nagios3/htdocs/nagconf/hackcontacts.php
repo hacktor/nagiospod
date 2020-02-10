@@ -43,6 +43,11 @@ if (isset($_POST['oldpw'])) {
 # Remove Contact
 isset($_POST['removecontact']) && rmcontact($db,$_POST['removecontact']);
 
+# Add Telegram bot
+if (isset($_POST['api_key']) and isset($_POST['chat_id'])) {
+    addetc($db, ['api_key' => $_POST['api_key'], 'chat_id' => $_POST['chat_id']]);
+}
+
 # Add Contact
 if (isset($_POST['contactadd']) and ($_POST['contactadd'] == 'Add')) {
   $name		= isset($_POST['contact_name_add']) ? hackvalidate($_POST['contact_name_add']) : ''; 
@@ -54,6 +59,7 @@ if (isset($_POST['contactadd']) and ($_POST['contactadd'] == 'Add')) {
 foreach ($error as $ln) { echo "<font color=red>" .$ln. "</font><br>\n"; }
 foreach ($warning as $ln) { echo "<font color=orange>" .$ln. "</font><br>\n"; }
 foreach ($good as $ln) { echo "<font color=green>" .$ln. "</font><br>\n"; }
+
 ?>
 <BR /><BR />
 <DIV CLASS='infoBoxTitle'>Hacking Contact Information</DIV>
