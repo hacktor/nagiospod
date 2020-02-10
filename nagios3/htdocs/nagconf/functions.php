@@ -26,7 +26,7 @@ function normaltext($text) {
 }
 
 function makeclean($dir) {
-    # shell_exec('rm /etc/nagios3/' .$dir. '/*');
+    shell_exec('rm -f /etc/nagios3/' .$dir. '/*.cfg');
 }
 
 function populate($dir) {
