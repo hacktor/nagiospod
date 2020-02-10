@@ -17,8 +17,8 @@ rm -rf /etc/rsyslog.d /etc/rsyslog.conf
 [ -d /tmp/nagios3 ] && rm -rf /etc/nagios3 && mv /tmp/nagios3 /etc/nagios3
 
 php /etc/nagios3/createdb.php
-mkdir -p /var/log/nagios3/archives
-chown -R nagios:www-data /var/log/nagios3 /var/lib/nagios3
+mkdir -p /var/lib/nagios3/archives
+chown -R www-data:www-data /var/lib/nagios3
 chown -R www-data:nagios /etc/nagios3
 
 a2enmod session session_cookie session_crypto auth_form request cgi auth_digest
