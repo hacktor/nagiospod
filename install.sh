@@ -5,7 +5,7 @@ export DEBIAN_FRONTEND=noninteractive
 export DEBCONF_NONINTERACTIVE_SEEN=true
 
 apt update
-apt install -y vim apache2 apache2-utils php-sqlite3 nagios3 monitoring-plugins-basic nagios-nrpe-plugin libapache2-mod-php
+apt install -y vim curl s-nail apache2 apache2-utils php-sqlite3 nagios3 monitoring-plugins-basic nagios-nrpe-plugin libapache2-mod-php
 apt clean
 rm -Rf /var/lib/apt/lists/*
 
