@@ -1,9 +1,12 @@
 #!/bin/bash
 
+# assume default cni pod network
+# todo add $USER3$ and $USER4$ macro's to resource.cfg
+
 newcontainer=$(buildah from ubuntu:bionic)
 
 buildah config --created-by "HackTor IT"  $newcontainer
-buildah config --author "Ruben de Groot" --label name=nagios $newcontainer
+buildah config --author "Ruben de Groot" --label name=nagiospod $newcontainer
 buildah copy $newcontainer ./install.sh /usr/bin/install.sh
 buildah copy $newcontainer ./entrypoint.sh /usr/bin/entrypoint.sh
 buildah copy $newcontainer ./sendtelegram /usr/bin/sendtelegram
