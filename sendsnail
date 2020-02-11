@@ -1,0 +1,59 @@
+#!/bin/bash
+
+if [ "$1" == "host" ]; then
+    NOTIFICATIONTYPE="$2"
+    HOSTNAME="$3"
+    HOSTSTATE="$4"
+    HOSTADDRESS="$5"
+    HOSTOUTPUT="$6"
+    MTA="$7"
+    FROM="$8"
+    EMAIL="$9"
+
+    body=$(cat <<OEB
+    ***** Nagios *****
+
+    Notification Type: $NOTIFICATIONTYPE
+    Host: $HOSTNAME
+    State: $HOSTSTATE
+    Address: $HOSTADDRESS
+    Info: $HOSTOUTPUT
+
+    Date/Time: $LONGDATETIME
+OEB
+)
+    subject="** $NOTIFICATIONTYPE Host Alert: $HOSTNAME is $HOSTSTATE **"
+elif [ "$1" == "service" ]; then
+    NOTIFICATIONTYPE="$2"
+    SERVICEDESC="$3"
+    HOSTALIAS="$4"
+    HOSTADDRESS="$5"
+    SERVICESTATE="$6"
+    LONGDATETIME="$7"
+    SERVICEOUTPUT="$8"
+    MTA="$9"
+    FROM="${10}"
+    EMAIL="${11}"
+
+    body=$(cat <<EOB
+    ***** Nagios *****
+
+    Notification Type: $NOTIFICATIONTYPE
+
+    Service: $SERVICEDESC
+    Host: $HOSTALIAS
+    Address: $HOSTADDRESS
+    State: $SERVICESTATE
+
+    Date/Time: $LONGDATETIME
+
+    Additional Info:
+
+    $SERVICEOUTPUT
+EOB
+)
+
+    subject="** $NOTIFICATIONTYPE Service Alert: $HOSTALIAS/$SERVICEDESC is $SERVICESTATE **"
+fi
+
+out=$(echo -e "$body" | /usr/bin/s-nail -s "$subject" -S "mta=$MTA" -S "from=$FROM" "$EMAIL")
