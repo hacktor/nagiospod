@@ -1,19 +1,32 @@
 #!/bin/bash
 #
-# argv: <service|host> "$CONTACTPAGER$" "$SERVICEDESC$" "$HOSTALIAS$" "$SERVICESTATE$" "$LONGDATETIME$" "$SERVICEOUTPUT$"
+# argv: <service> "$CONTACTEMAIL$" "$CONTACTPAGER$" "$SERVICEDESC$" "$HOSTALIAS$" "$SERVICESTATE$" "$LONGDATETIME$" "$SERVICEOUTPUT$"
+# argv: <host> "$CONTACTEMAIL$" "$CONTACTPAGER$" "$HOSTALIAS$" "$HOSTSTATE$" "$LONGDATETIME$"
 #
 # curl 'https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID&text="Hello World"'
 #
 # send a telegram notification from nagios
 
-IFS=';' read -r TOKEN CHAT_ID <<< "$2"
+KEY="$2"
+CHAT="$3"
 
-echo "TOKEN=$TOKEN"
-echo "CHAT_ID=$CHAT_ID"
+urlencode() {
+    # urlencode <string>
+    local length="${#1}"
+    for (( i = 0; i < length; i++ )); do
+        local c="${1:i:1}"
+        case $c in
+            [a-zA-Z0-9.~_-]) printf "$c" ;;
+            *) printf '%%%02X' "'$c" ;;
+        esac
+    done
+}
 
-[ "$1" == "service" ] && \
-/usr/bin/curl https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID\&text="$3 on $4 is $5 at $6: $7"
+if [ "$1" == "service" ]; then
+    text=$(urlencode "$4 on $5 is $6 at $7: $8")
+elif [ "$1" == "host" ]; then
+    text=$(urlencode "$4 is $5 at $6")
+fi
 
-[ "$1" == "host" ] && \
-/usr/bin/curl https://api.telegram.org/bot$TOKEN/sendMessage?chat_id=$CHAT_ID\&text="$3 is $4 at $5"
-
+out=$(/usr/bin/curl -s "https://api.telegram.org/bot$KEY/sendMessage?chat_id=$CHAT&text=$text")
+exit 0
