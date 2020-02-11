@@ -18,8 +18,8 @@ rm -rf /etc/rsyslog.d /etc/rsyslog.conf
 
 php /etc/nagios3/createdb.php
 mkdir -p /var/lib/nagios3/archives
-chown -R www-data:www-data /var/lib/nagios3
-chown -R www-data:nagios /etc/nagios3
+chown -R www-data:www-data /var/lib/nagios3 /var/www
+chown -R www-data:www-data /etc/nagios3
 
 a2enmod session session_cookie session_crypto auth_form request cgi auth_digest
 
