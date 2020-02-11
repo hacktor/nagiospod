@@ -58,13 +58,11 @@ if (isset($_POST['addsrvtohost'])) {
 
 # Remove a service from a host
 if (isset($_POST['removesrv'])) {
-    if (normaltext($_POST['removesrv'])) {
-        $tmp=explode(';',$_POST['removesrv']);
-        if (count($servicesbyhost[$tmp[0]]) > 1) {
-            rmservicefromhost($db,$tmp[0],$tmp[1]);
-        } else {
-            $error[] = "You tried to remove a service from a host with only one service. This is not allowed. You should remove the host instead";
-        }
+    $tmp=explode(';',$_POST['removesrv']);
+    if (count($servicesbyhost[$tmp[0]]) > 1) {
+        rmservicefromhost($db,$tmp[0],$tmp[1]);
+    } else {
+        $error[] = "You tried to remove a service from a host with only one service. This is not allowed. You should remove the host instead";
     }
 }
 
@@ -79,7 +77,7 @@ foreach ($hosts as $host) {
     foreach ($servicesbyhost[$host['name']] as $ccommand => $service) {
 
         $tbody.=$tdhost . "<TD CLASS=statusODD>".$service['descr']."</TD>";
-        $tbody.="<TD CLASS=statusODD><BUTTON type='submit' name=removesrv value=" . $host['name'].';'.$service['check_command'] . " alt=Remove><IMG SRC='/nagios/images/disabled.gif'></BUTTON></TD></FORM></TR>";
+        $tbody.="<TD CLASS=statusODD><BUTTON type='submit' name=removesrv value='" . $host['name'].';'.$service['check_command'] . "' alt=Remove><IMG SRC='/nagios/images/disabled.gif'></BUTTON></TD></FORM></TR>";
 	    $tdhost='<TR><FORM method=POST><TD></TD><TD></TD><TD></TD>';
     }
 
