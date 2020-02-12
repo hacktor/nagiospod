@@ -44,6 +44,7 @@ $link_target="main";
         <ul>
 			<li class="menuli_style1"><a href="/nagconf/checker.php" target="main">Dry Run</a></li>
 			<li class="menuli_style1"><a href="/nagconf/activate.php" target="main">Acivate Configuration</a></li>
+			<li class="menuli_style1"><a href="/nagconf/resources.php" target="main">Miscellaneous Options</a></li>
         </ul>
 	</div>
 </body>

@@ -183,4 +183,13 @@ function addetc($db,$array) {
     }
 }
 
+function updateetc($db,$key,$value) {
+    global $etc;
+    $q = $db->prepare("replace into etc (key,value) values (:key,:value)");
+    $q->bindValue(':key', $key);
+    $q->bindValue(':value', $value);
+    $q->execute();
+    $etc[$key] = $value;
+}
+
 ?>
