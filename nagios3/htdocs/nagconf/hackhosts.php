@@ -85,7 +85,7 @@ foreach ($hosts as $host) {
     $tbody.="<TD CLASS=statusODD><SELECT name=addsrvtohost[".$host['name']."]>";
 
     foreach ($checkcommands as $cc) {
-        if (isset($servicesbyhost[$host['name']][$cc['check_command']]) and ($cc['argnr'] == 0)) {
+        if (isset($servicesbyhost[$host['name']][$cc['name']]) and ($cc['argnr'] == 0)) {
             continue;
         } else {
             $tbody.="<OPTION value=".$cc['id'].">".$cc['descr']."</OPTION>";
