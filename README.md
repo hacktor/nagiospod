@@ -1,5 +1,8 @@
 # Nagios Pod
 Container build with buildah of nagios pod
+
+It has a basic configuration interface for configuring hosts and services and notifications which can be send by email or telegram bot.
+
 ## Requirements
 * Linux server
 * podman
