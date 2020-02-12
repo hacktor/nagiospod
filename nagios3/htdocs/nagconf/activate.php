@@ -19,18 +19,13 @@ include_once 'functions.php';
 <BR /><BR />
 <DIV ALIGN=CENTER CLASS='infoBoxTitle'>Activate New Configuration</DIV>
 <DIV ALIGN=CENTER CLASS='infoBox'>
-Here you can activate your configuration. Hit the "Generate" Button and you will see the output of a configuration check. If you're confident of the results, you may proceed with the "Activate" Button.
-</DIV>
-<br />
 <FORM method=POST name=dryrun>
-<TABLE ALIGN=CENTER border=0 CLASS=status>
-<TR><TD colspan=2 CLASS=statusTitle>
-<BUTTON type='submit' name='Generate' value=Generate>Generate</BUTTON>
-</TD</TR>
-<TR><TD colspan=2 CLASS=statusTitle>
-<BUTTON type='submit' name='Activate' value=Activate>Activate</BUTTON>
-</TD</TR>
-</TABLE></FORM>
+Here you can activate your configuration. Hitting the "Generate" Button will overwrite the current hosts and services configuration; make sure you did a "Dry Run" first!
+<p><BUTTON type='submit' name='Generate' value=Generate>Generate</BUTTON></p>
+If you're confident of the results, you may proceed with the "Activate" Button.
+<p><BUTTON type='submit' name='Activate' value=Activate>Activate</BUTTON></p>
+</FORM>
+</DIV>
 
 <?php
 if (isset($_POST['Generate'])) {
@@ -46,7 +41,10 @@ if (isset($_POST['Generate'])) {
     $out = shell_exec('/usr/sbin/nagios3 -d /etc/nagios3/nagios.cfg');
     if (!$out) {
         echo "<DIV ALIGN=CENTER CLASS='infoBoxTitle'>Looks like that worked fine :-D</DIV>";
+        echo "<DIV ALIGN=CENTER><IMG src=/images/pirate-ok.gif></DIV>";
     } else {
+        echo "<DIV ALIGN=CENTER CLASS='infoBoxTitle'>Looks like something went terribly wrong :-(</DIV>";
+        echo "<DIV ALIGN=CENTER><IMG src=/images/pirate-hmm.gif></DIV>";
         echo "<PRE>\n";
         echo $out;
         echo "</PRE>\n";
