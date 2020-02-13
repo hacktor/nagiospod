@@ -1,0 +1,10 @@
+version: "2"
+services:
+
+    nagiospod:
+      image: hacktor:nagiospod
+      ports:
+        - "8080:80"
+      volumes:
+        - ./lib:/var/lib/nagios3
+        - ./nagios3:/etc/nagios3
