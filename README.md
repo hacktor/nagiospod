@@ -12,5 +12,5 @@ It has a basic configuration interface for configuring hosts and services and no
 git clone https://github.com/hacktor/nagiospod.git
 cd nagiospod
 ./build.sh
-podman run -d -p 8080:80 -v ./nagios3:/etc/nagios3 --name nagiospod nagiospod
+podman run -d -p 8080:80 -v ./nagios3:/etc/nagios3 -v ./lib:/var/lib/nagios3 --name nagiospod nagiospod
 ```
