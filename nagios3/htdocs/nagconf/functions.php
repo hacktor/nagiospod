@@ -22,7 +22,11 @@ function hackvalidate($data) {
 }
 
 function normaltext($text) {
-  return preg_match('/^[A-Za-z0-9\!\;\.\-\_\+\@\,\(\)\ ]*$/', $text);
+    return preg_match('/^[A-Za-z0-9\!\;\.\-\_\+\@\,\(\)\ ]*$/', $text);
+}
+
+function save_htpasswd($user,$pw) {
+    shell_exec("htpasswd -b /etc/nagios3/htpasswd.users $user $pw");
 }
 
 function makeclean($dir) {

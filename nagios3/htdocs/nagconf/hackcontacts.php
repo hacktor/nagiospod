@@ -15,29 +15,23 @@ Hacking Contacts
 <?php
 include_once 'database.php';
 include_once 'functions.php';
-require_once 'htpasswd.inc';
-
-$pass_array=load_htpasswd();
 
 # Update password
-if (isset($_POST['oldpw'])) {
-  if ($_POST['oldpw'] == $_SERVER['PHP_AUTH_PW']) {
-    if ($_POST['newpw1'] == $_POST['newpw2']) {
-      if (strlen($_POST['newpw1']) > 8) {
-        $good[]="Changing password";
-        if (isset($_SERVER['PHP_AUTH_USER']) && test_htpasswd( $pass_array,  $_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'] )) {
-	  $pass_array[$admin_user] = rand_salt_crypt($_POST['newpw1']);
-	  save_htpasswd($pass_array);
+if (isset($_SERVER['PHP_AUTH_USER']) and isset($_POST['oldpw'])) {
+    if ($_POST['oldpw'] === $_SERVER['PHP_AUTH_PW']) {
+        if ($_POST['newpw1'] === $_POST['newpw2']) {
+            if (strlen($_POST['newpw1']) > 8) {
+                $good[]="Changing password";
+                save_htpasswd( $_SERVER['PHP_AUTH_USER'], $_POST['newpw1'] );
+            } else {
+                $error[]="Password must be more than 8 characters";
+            }
+        } else {
+            $error[]="Passwords do not match";
         }
-      } else {
-        $error[]="Password must be more than 8 characters";
-      }
     } else {
-      $error[]="Passwords do not match";
+        $error[] = "Old Password Incorrect";
     }
-  } else {
-    $error[] = "Old Password Incorrect";
-  }
 }
 
 # Remove Contact
