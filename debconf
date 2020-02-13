@@ -5,6 +5,6 @@ postfix postfix/mailname string "nagioshack.hacktor.com"
 tzdata tzdata/Areas select Europe
 tzdata tzdata/Zones/Europe select Amsterdam
 
-nagios3-cgi nagios3/adminpassword-repeat password huppeldepup
-nagios3-cgi nagios3/adminpassword password huppeldepup
+nagios3-cgi nagios3/adminpassword-repeat password changemefast
+nagios3-cgi nagios3/adminpassword password changemefast
 nagios3-cgi nagios3/adminpassword-mismatch note
