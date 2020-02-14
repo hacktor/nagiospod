@@ -78,5 +78,7 @@ SQL;
 
 echo "Setting default values\n";
 $db->exec($sql);
-
+include_once('/etc/nagios3/htdocs/nagconf/database.php');
+include_once('/etc/nagios3/htdocs/nagconf/functions.php');
+populate('objects');
 ?>

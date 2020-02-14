@@ -17,8 +17,6 @@ rm -rf /etc/rsyslog.d /etc/rsyslog.conf
 [ -d /tmp/nagios3 ] && rm -rf /etc/nagios3 && mv /tmp/nagios3 /etc/nagios3
 [ -d /tmp/lib ] && rm -rf /var/lib/nagios3 && mv /tmp/lib /var/lib/nagios3
 
-php /etc/nagios3/createdb.php
-mkdir -p /var/lib/nagios3/archives
 chown -R www-data:www-data /var/lib/nagios3 /var/www
 chown -R www-data:www-data /etc/nagios3
 
