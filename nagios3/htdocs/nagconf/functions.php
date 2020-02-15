@@ -52,6 +52,9 @@ function populate($dir) {
 
     foreach ($hosts as $name => $host) {
         $config .= "define host {\n\thost_name\t". $name ."\n\taddress\t". $host['address'];
+	$config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
+	$config .= "\n\tnormal_check_interval\t". $etc['normal_check_interval'];
+	$config .= "\n\tretry_check_interval\t". $etc['retry_check_interval'];
         $config .= "\n\talias\t". $host['alias'] ."\n\tcontacts\t". $ctmp ."\n\tuse\tinternet-server\n}\n";
     }
     file_put_contents('/etc/nagios3/' .$dir. '/hosts.cfg', $config);
@@ -59,10 +62,27 @@ function populate($dir) {
     foreach ($servicesbyhost as $host => $srvs) {
         foreach ($srvs as $cc => $s) {
             $config .= "define service {\n\tcheck_command\t". $cc ."\n\tservice_description\t". $s['descr'];
+	    $config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
+	    $config .= "\n\tnormal_check_interval\t". $etc['normal_check_interval'];
+	    $config .= "\n\tretry_check_interval\t". $etc['retry_check_interval'];
             $config .= "\n\thost_name\t". $host ."\n\tcontacts\t". $ctmp ."\n\tuse\tgeneric-service\n}\n";
         }
     }
     file_put_contents('/etc/nagios3/' .$dir. '/services.cfg', $config);
+}
+
+function fileset($file,$search,$replace) {
+    $lines = file($file);
+    $result = '';
+    
+    foreach($lines as $line) {
+        if(substr($line, 0, strlen($search)) == $search) {
+            $result .= "$replace\n";
+        } else {
+            $result .= $line;
+        }
+    }
+    file_put_contents($file, $result);
 }
 
 ?>
