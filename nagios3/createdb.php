@@ -73,6 +73,11 @@ $db->exec($sql);
 $sql =<<<'SQL'
 INSERT INTO etc (key,value) VALUES ('api_key','');
 INSERT INTO etc (key,value) VALUES ('chat_id','');
+INSERT INTO etc (key,value) VALUES ('max_check_attempts','4');
+INSERT INTO etc (key,value) VALUES ('normal_check_interval','2');
+INSERT INTO etc (key,value) VALUES ('retry_check_interval','1');
+INSERT INTO etc (ket,value) VALUES ('$USER3$','smtp://10.88.0.1:25');
+INSERT INTO etc (ket,value) VALUES ('$USER4$','monitor@hacktor.com');
 INSERT INTO contacts (name,email,telephone) VALUES ('nagiosadmin','devnull@hacktor.com','1-WHITEHOUSE');
 SQL;
 
