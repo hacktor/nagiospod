@@ -29,6 +29,8 @@ if (isset($_POST['addhost']) and isset($_POST['hostname']) and isset($_POST['hos
         } else {
             $ccargs = $cc;
             $hostargs = $_POST['hostname'];
+	    $hostalias = $_POST['hostalias'];
+	    $hostaddress = $_POST['hostaddress'];
         }
     }
 }
@@ -43,8 +45,10 @@ if (isset($_POST['addsrvtohost'])) {
     foreach ($_POST['addsrvtohost'] as $host => $ccid) break;
     if (isset($hosts[$host]) and isset($checkcommands[$ccid])) {
         # need to get description and parameters
-        $hostargs = $host;
         $ccargs = $checkcommands[$ccid];
+        $hostargs = $host;
+	$hostalias = $hosts[$host]['alias'];
+	$hostaddress = $hosts[$host]['address'];
         $justsrv = true;
     }
 } elseif (isset($_POST['justsrv']) and isset($_POST['hostname']) and isset($_POST['ccid']) and isset($_POST['descr'])) {
@@ -133,9 +137,9 @@ if (isset($ccargs)) {
     if ($ccargs['argnr'] > 2) {
         echo "</TR><TR><TD class=statusODD><INPUT type=text id=arg3 name=arg3></TD>";
     }
-    echo "<TD class=statusODD><INPUT type=submit name=args value=Submit></TD</TR></TABLE><INPUT type=hidden name=hostname value=". $hostargs;
-    echo "><INPUT type=hidden name=ccid value=". $ccargs['id'] ."><INPUT type=hidden name=hostalias value=". $hosts[$hostargs]['alias'];
-    echo "><INPUT type=hidden name=hostaddress value=". $hosts[$hostargs]['address'] ."><INPUT type=hidden name=addhost value=Add>";
+    echo "<TD class=statusODD><INPUT type=submit name=args value=Submit></TD</TR></TABLE><INPUT type=hidden name=hostname value='". $hostargs;
+    echo "'><INPUT type=hidden name=ccid value=". $ccargs['id'] ."><INPUT type=hidden name=hostalias value='". $hostalias;
+    echo "'><INPUT type=hidden name=hostaddress value=". $hostaddress ."><INPUT type=hidden name=addhost value=Add>";
     if (isset($justsrv)) {
         echo "<INPUT type=hidden name=justsrv value=true>";
     }
