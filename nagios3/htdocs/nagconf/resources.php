@@ -16,13 +16,22 @@ Activate Configuration
 include_once 'database.php';
 include_once 'functions.php';
 if (isset($_POST['NOTIFY'])) {
-    if (isset($_POST['max_check_attempts']) and ($etc['max_check_attempts'] !== $_POST['max_check_attempts'])) updateetc($db,'max_check_attempts', $_POST['max_check_attempts']);
-    if (isset($_POST['normal_check_interval']) and ($etc['normal_check_interval'] !== $_POST['normal_check_interval'])) updateetc($db,'normal_check_interval', $_POST['normal_check_interval']);
-    if (isset($_POST['retry_check_interval']) and ($etc['retry_check_interval'] !== $_POST['retry_check_interval'])) updateetc($db,'retry_check_interval', $_POST['retry_check_interval']);
+    if (isset($_POST['max_check_attempts']) and ($etc['max_check_attempts'] !== $_POST['max_check_attempts']))
+        updateetc($db,'max_check_attempts', $_POST['max_check_attempts']);
+    if (isset($_POST['normal_check_interval']) and ($etc['normal_check_interval'] !== $_POST['normal_check_interval']))
+        updateetc($db,'normal_check_interval', $_POST['normal_check_interval']);
+    if (isset($_POST['retry_check_interval']) and ($etc['retry_check_interval'] !== $_POST['retry_check_interval']))
+        updateetc($db,'retry_check_interval', $_POST['retry_check_interval']);
 
 } elseif (isset($_POST['MAILCFG'])) {
-    if (isset($_POST['$USER3$']) and ($etc['$USER3$'] !== $_POST['$USER3$'])) updateetc($db,'$USER3$', $_POST['$USER3$']);
-    if (isset($_POST['$USER4$']) and ($etc['$USER4$'] !== $_POST['$USER4$'])) updateetc($db,'$USER4$', $_POST['$USER4$']);
+    if (isset($_POST['MTA']) and ($etc['$USER3$'] !== $_POST['MTA'])) {
+        updateetc($db,'$USER3$', $_POST['MTA']);
+        fileset('/etc/nagios3/resource.cfg','$USER3$=','$USER3$='. $_POST['MTA']);
+    }
+    if (isset($_POST['FROM']) and ($etc['$USER4$'] !== $_POST['FROM'])) {
+        updateetc($db,'$USER4$', $_POST['FROM']);
+        fileset('/etc/nagios3/resource.cfg','$USER4$=','$USER4$='. $_POST['FROM']);
+    }
 }
 ?>
 <BR /><BR />
