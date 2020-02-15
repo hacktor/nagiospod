@@ -148,7 +148,7 @@ function addservice2host($db,$hostname,$srvname,$descr,$argnr,$arg1,$arg2,$arg3,
         if (! $res) {
             $error[] = "insert of $ccommand into services table failed";
         } else {
-            $servicesbyhost[$hostname][$ccommand] = [ 'check_commands' => $ccommand, 'hostname' => $name, 'descr' => $descr, 'argnr' => $argnr,
+            $servicesbyhost[$hostname][$ccommand] = [ 'check_commands' => $ccommand, 'hostname' => $hostname, 'descr' => $descr, 'argnr' => $argnr,
                                                       'arg1' => $arg1, 'arg2' => $arg2, 'arg3' => $arg3, 'ccid' => $ccid ];
         }
     }
