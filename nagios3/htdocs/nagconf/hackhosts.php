@@ -77,7 +77,7 @@ foreach ($hosts as $host) {
     foreach ($servicesbyhost[$host['name']] as $ccommand => $service) {
 
         $tbody.=$tdhost . "<TD CLASS=statusODD>".$service['descr']."</TD>";
-        $tbody.="<TD CLASS=statusODD><BUTTON type='submit' name=removesrv value='" . $host['name'].';'.$service['check_command'] . "' alt=Remove><IMG SRC='/nagios/images/disabled.gif'></BUTTON></TD></FORM></TR>";
+        $tbody.="<TD CLASS=statusODD><BUTTON type='submit' name=removesrv value='" . $host['name'].';'.$ccommand . "' alt=Remove><IMG SRC='/nagios/images/disabled.gif'></BUTTON></TD></FORM></TR>";
 	    $tdhost='<TR><FORM method=POST><TD></TD><TD></TD><TD></TD>';
     }
 
@@ -134,8 +134,8 @@ if (isset($ccargs)) {
         echo "</TR><TR><TD class=statusODD><INPUT type=text id=arg3 name=arg3></TD>";
     }
     echo "<TD class=statusODD><INPUT type=submit name=args value=Submit></TD</TR></TABLE><INPUT type=hidden name=hostname value=". $hostargs;
-    echo "><INPUT type=hidden name=ccid value=". $ccargs['id'] ."><INPUT type=hidden name=hostalias value=". $_POST['hostalias'];
-    echo "><INPUT type=hidden name=hostaddress value=". $_POST['hostaddress'] ."><INPUT type=hidden name=addhost value=Add>";
+    echo "><INPUT type=hidden name=ccid value=". $ccargs['id'] ."><INPUT type=hidden name=hostalias value=". $hosts[$hostargs]['alias'];
+    echo "><INPUT type=hidden name=hostaddress value=". $hosts[$hostargs]['address'] ."><INPUT type=hidden name=addhost value=Add>";
     if (isset($justsrv)) {
         echo "<INPUT type=hidden name=justsrv value=true>";
     }
