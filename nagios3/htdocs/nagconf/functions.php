@@ -42,7 +42,7 @@ function populate($dir) {
         $config .= $contact['email'] ."\n\tuse\tgeneric-contact\n}\n";
     }
     # abuse email and pager macro's for api_key and chat_id
-    if (isset($etc['api_key']) and isset($etc['chat_id'])) {
+    if (isset($etc['api_key']) and isset($etc['chat_id']) and !empty($etc['api_key']) and !empty($etc['chat_id'])) {
         $config .= "define contact {\n\tcontact_name\ttelegram\n\tpager\t".$etc['chat_id']."\n\temail\t".$etc['api_key']."\n\tuse\ttelegram-contact\n}\n";
     }
     file_put_contents('/etc/nagios3/' .$dir. '/contacts.cfg', $config);
