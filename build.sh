@@ -8,7 +8,7 @@ newcontainer=$(buildah from ubuntu:bionic)
 
 buildah config --created-by "HackTor IT"  $newcontainer
 buildah config --author "Ruben de Groot" --label name=nagiospod $newcontainer
-buildah config --env CNI_NET=${CNI_NET} --env GATEWAY=${GATEWAY}
+buildah config --env CNI_NET=${CNI_NET} --env GATEWAY=${GATEWAY} $newcontainer
 buildah copy $newcontainer ./install.sh /usr/bin/install.sh
 buildah copy $newcontainer ./entrypoint.sh /usr/bin/entrypoint.sh
 buildah copy $newcontainer ./sendtelegram /usr/bin/sendtelegram
