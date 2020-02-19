@@ -42,6 +42,12 @@ if (isset($_POST['api_key']) and isset($_POST['chat_id'])) {
     addetc($db, ['api_key' => $_POST['api_key'], 'chat_id' => $_POST['chat_id']]);
 }
 
+# Test Telegram bot
+if (isset($_POST['teletest'])) {
+    shell_exec('curl -s "https://api.telegram.org/bot'.$etc['api_key'].'/sendMessage?chat_id='.$etc['chat_id'].'&text=TestAlarm"');
+    $good[] = "Test message send";
+}
+
 # Add Contact
 if (isset($_POST['contactadd']) and ($_POST['contactadd'] == 'Add')) {
   $name		= isset($_POST['contact_name_add']) ? hackvalidate($_POST['contact_name_add']) : ''; 
@@ -71,7 +77,7 @@ You may also configure a telegram bot to send messages to.
 <TR><TD colspan=2 CLASS=statusTitle>Telegram Bot Information</TD</TR>
 <TR><TH width=35% CLASS=status>API KEY</TH><TD class=statusODD><input type=text name=api_key value=<?php echo $etc['api_key']; ?>></TD></TR>
 <TR><TH width=35% CLASS=status>CHAT ID</TH><TD class=statusODD><input type=text name=chat_id value=<?php echo $etc['chat_id']; ?>></TD></TR>
-<TR><TD cellspan=2><INPUT type=submit name=UpdateTEL value="Update Telegram" /></TD></TR>
+<TR><TD><INPUT type=submit name=UpdateTEL value="Update Telegram" /></TD><TD><INPUT type=submit name=teletest value="Test Telegram" /></TD></TR>
 </TABLE></FORM>
 
 </TD><TD valign=top width=50%>
