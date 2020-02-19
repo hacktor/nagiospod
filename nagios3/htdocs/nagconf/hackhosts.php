@@ -115,27 +115,39 @@ Check updates to your configuration with the Dry-Run button before you hit the U
 
 <?php
 if (isset($ccargs)) {
-    echo "<DIV ALIGN=CENTER CLASS='statusTitle'>Please specify parameters for ". $ccargs['descr'] ." on ". $hostargs ."</DIV>\n";
+    echo "<DIV ALIGN=CENTER CLASS='statusTitle' style='color: red'>Please specify parameters for ". $ccargs['descr'] ." on ". $hostargs ."</DIV>\n";
     echo "<FORM method=POST name=args><TABLE border=0 width=100% CLASS=status><TR>";
-    echo "<TH CLASS=status>Description of service</TH>";
-    if ($ccargs['argnr'] > 0) {
-        echo "<TH CLASS=status>". $ccargs['arg1_descr'] ."</TH>";
+    echo "<TH CLASS=status width=22.5%>Description of service</TH>\n";
+    if ($ccargs['argnr'] == 1) {
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg1_descr'] ."</TH>\n";
+        echo "<TH CLASS=status width=22.5%></TH>";
+        echo "<TH CLASS=status width=22.5%></TH>";
     }
-    if ($ccargs['argnr'] > 1) {
-        echo "<TH CLASS=status>". $ccargs['arg2_descr'] ."</TH>";
+    if ($ccargs['argnr'] == 2) {
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg1_descr'] ."</TH>\n";
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg2_descr'] ."</TH>\n";
+        echo "<TH CLASS=status width=22.5%></TH>";
     }
-    if ($ccargs['argnr'] > 2) {
-        echo "<TH CLASS=status>". $ccargs['arg3_descr'] ."</TH>";
+    if ($ccargs['argnr'] == 3) {
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg1_descr'] ."</TH>\n";
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg2_descr'] ."</TH>\n";
+        echo "<TH CLASS=status width=22.5%>". $ccargs['arg3_descr'] ."</TH>\n";
     }
-    echo "<TH CLASS=status></TH></TR><TR><TD class=statusODD><INPUT type=text name=descr></TD>";
-    if ($ccargs['argnr'] > 0) {
-        echo "<TD class=statusODD><INPUT type=text id=arg1 name=arg1></TD>";
+    echo "<TH CLASS=status width=10%></TH></TR><TR><TD class=statusODD><INPUT type=text name=descr></TD>";
+    if ($ccargs['argnr'] == 1) {
+        echo "<TD class=statusODD><INPUT type=text id=arg1 name=arg1></TD>\n";
+        echo "<TD class=statusODD></TD>\n";
+        echo "<TD class=statusODD></TD>\n";
     }
-    if ($ccargs['argnr'] > 1) {
-        echo "</TR><TR><TD class=statusODD><INPUT type=text id=arg2 name=arg2></TD>";
+    if ($ccargs['argnr'] == 2) {
+        echo "<TD class=statusODD><INPUT type=text id=arg1 name=arg1></TD>\n";
+        echo "<TD class=statusODD><INPUT type=text id=arg2 name=arg2></TD>\n";
+        echo "<TD class=statusODD></TD>\n";
     }
-    if ($ccargs['argnr'] > 2) {
-        echo "</TR><TR><TD class=statusODD><INPUT type=text id=arg3 name=arg3></TD>";
+    if ($ccargs['argnr'] == 3) {
+        echo "<TD class=statusODD><INPUT type=text id=arg1 name=arg1></TD>\n";
+        echo "<TD class=statusODD><INPUT type=text id=arg2 name=arg2></TD>\n";
+        echo "<TD class=statusODD><INPUT type=text id=arg3 name=arg3></TD>\n";
     }
     echo "<TD class=statusODD><INPUT type=submit name=args value=Submit></TD</TR></TABLE><INPUT type=hidden name=hostname value='". $hostargs;
     echo "'><INPUT type=hidden name=ccid value=". $ccargs['id'] ."><INPUT type=hidden name=hostalias value='". $hostalias;
@@ -148,6 +160,7 @@ if (isset($ccargs)) {
 ?>
 
 <br />
+
 <DIV ALIGN=CENTER CLASS='statusTitle'>Service Checks For All Hosts</DIV>
 <TABLE border=0 width=100% CLASS=status>
 <TR><TH CLASS=status width=22.5%>Host Name</TH>
