@@ -1,3 +1,5 @@
 nagios3/sqlite.db
 nagios3/test/*
 nagios3/objects/*
+nagios3/htpasswd.users
+nagios3/resource.cfg
