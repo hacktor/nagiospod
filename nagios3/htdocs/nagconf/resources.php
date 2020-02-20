@@ -22,6 +22,8 @@ if (isset($_POST['NOTIFY'])) {
         updateetc($db,'check_interval', $_POST['check_interval']);
     if (isset($_POST['retry_interval']) and ($etc['retry_interval'] !== $_POST['retry_interval']))
         updateetc($db,'retry_interval', $_POST['retry_interval']);
+    if (isset($_POST['notification_interval']) and ($etc['notification_interval'] !== $_POST['notification_interval']))
+        updateetc($db,'notification_interval', $_POST['notification_interval']);
 
 } elseif (isset($_POST['MAILCFG'])) {
     if (isset($_POST['MTA']) and ($etc['$USER3$'] !== $_POST['MTA'])) {
@@ -45,6 +47,7 @@ Some expert options here that effect nagios' inner workings. Advise is to not to
 <TR><TH width=35% CLASS=status>max_check_attempts:</TH><TD class=statusODD><input type=text name=max_check_attempts value="<?php echo $etc['max_check_attempts']; ?>">Number of failed checks before notifications are send</TD></TR>
 <TR><TH width=35% CLASS=status>check_interval:</TH><TD class=statusODD><input type=text name=check_interval value="<?php echo $etc['check_interval']; ?>">Minutes between checks</TD></TR>
 <TR><TH width=35% CLASS=status>retry_interval:</TH><TD class=statusODD><input type=text name=retry_interval value="<?php echo $etc['retry_interval']; ?>">Minutes between retries when a service or host check is failed</TD></TR>
+<TR><TH width=35% CLASS=status>notification_interval:</TH><TD class=statusODD><input type=text name=notification_interval value="<?php echo $etc['notification_interval']; ?>">Minutes between re-notifications (0 means no renotifications are sent unless status changed)</TD></TR>
 </TABLE>
 <p><BUTTON type='submit' name='NOTIFY' value=Reconfig>Reconfig</BUTTON></p>
 </FORM>
