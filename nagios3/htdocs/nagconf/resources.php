@@ -18,10 +18,10 @@ include_once 'functions.php';
 if (isset($_POST['NOTIFY'])) {
     if (isset($_POST['max_check_attempts']) and ($etc['max_check_attempts'] !== $_POST['max_check_attempts']))
         updateetc($db,'max_check_attempts', $_POST['max_check_attempts']);
-    if (isset($_POST['normal_check_interval']) and ($etc['normal_check_interval'] !== $_POST['normal_check_interval']))
-        updateetc($db,'normal_check_interval', $_POST['normal_check_interval']);
-    if (isset($_POST['retry_check_interval']) and ($etc['retry_check_interval'] !== $_POST['retry_check_interval']))
-        updateetc($db,'retry_check_interval', $_POST['retry_check_interval']);
+    if (isset($_POST['check_interval']) and ($etc['check_interval'] !== $_POST['check_interval']))
+        updateetc($db,'check_interval', $_POST['check_interval']);
+    if (isset($_POST['retry_interval']) and ($etc['retry_interval'] !== $_POST['retry_interval']))
+        updateetc($db,'retry_interval', $_POST['retry_interval']);
 
 } elseif (isset($_POST['MAILCFG'])) {
     if (isset($_POST['MTA']) and ($etc['$USER3$'] !== $_POST['MTA'])) {
@@ -43,8 +43,8 @@ Some expert options here that effect nagios' inner workings. Advise is to not to
 <TABLE border=0 CLASS=status width=70%>
 <TR><TD colspan=2 CLASS=statusTitle>Notification Options</TD</TR>
 <TR><TH width=35% CLASS=status>max_check_attempts:</TH><TD class=statusODD><input type=text name=max_check_attempts value="<?php echo $etc['max_check_attempts']; ?>">Number of failed checks before notifications are send</TD></TR>
-<TR><TH width=35% CLASS=status>normal_check_interval:</TH><TD class=statusODD><input type=text name=normal_check_interval value="<?php echo $etc['normal_check_interval']; ?>">Minutes between checks</TD></TR>
-<TR><TH width=35% CLASS=status>retry_check_interval:</TH><TD class=statusODD><input type=text name=retry_check_interval value="<?php echo $etc['retry_check_interval']; ?>">Minutes between retries when a service or host check is failed</TD></TR>
+<TR><TH width=35% CLASS=status>check_interval:</TH><TD class=statusODD><input type=text name=check_interval value="<?php echo $etc['check_interval']; ?>">Minutes between checks</TD></TR>
+<TR><TH width=35% CLASS=status>retry_interval:</TH><TD class=statusODD><input type=text name=retry_interval value="<?php echo $etc['retry_interval']; ?>">Minutes between retries when a service or host check is failed</TD></TR>
 </TABLE>
 <p><BUTTON type='submit' name='NOTIFY' value=Reconfig>Reconfig</BUTTON></p>
 </FORM>
