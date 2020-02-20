@@ -57,7 +57,7 @@ function rmservicefromhost($db,$host,$ccommand) {
 
 function rmhost($db,$name) {
     global $error,$hosts,$servicesbyhost;
-    if (! preg_match('/^[A-Za-z0-9\-\.]+$/', $name)) {
+    if (! ishost($name)) {
         $error[] = "hostname not accepted";
     } else {
         $q = $db->prepare('delete from hosts where name = :name');
@@ -93,7 +93,7 @@ function rmcontact($db,$name) {
 function addhost($db,$name,$alias,$address) {
     global $error,$hosts;
     if ($alias == '') { $alias = $name; }
-    if (! preg_match('/^[A-Za-z0-9\-\.]+$/', $name)) {
+    if (! ishost($name)) {
         $error[] = "hostname not accepted";
     } elseif (! preg_match('/^[A-Za-z0-9\-\.\,\; \/]+$/', $alias)) {
         $error[] = "alias not accepted";
@@ -115,7 +115,7 @@ function addhost($db,$name,$alias,$address) {
 
 function addservice2host($db,$hostname,$srvname,$descr,$argnr,$arg1,$arg2,$arg3,$ccid) {
     global $error,$servicesbyhost;
-    if (! normaltext($hostname)) {
+    if (! ishost($hostname)) {
         $error[] = "Hostname not accepted";
     } elseif (! normaltext($srvname)) {
         $error[] = "Service Name not accepted";

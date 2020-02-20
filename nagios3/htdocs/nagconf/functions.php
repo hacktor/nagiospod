@@ -25,6 +25,10 @@ function normaltext($text) {
     return preg_match('/^[A-Za-z0-9\!\;\.\-\_\+\@\,\(\)\ ]*$/', $text);
 }
 
+function ishost($text) {
+    return preg_match('/^a-z0-9\.\-$/', $text);
+}
+
 function save_htpasswd($user,$pw) {
     shell_exec("htpasswd -b /etc/nagios3/htpasswd.users $user $pw");
 }
@@ -53,8 +57,8 @@ function populate($dir) {
     foreach ($hosts as $name => $host) {
         $config .= "define host {\n\thost_name\t". $name ."\n\taddress\t". $host['address'];
         $config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
-        $config .= "\n\tnormal_check_interval\t". $etc['normal_check_interval'];
-        $config .= "\n\tretry_check_interval\t". $etc['retry_check_interval'];
+        $config .= "\n\tcheck_interval\t". $etc['check_interval'];
+        $config .= "\n\tretry_interval\t". $etc['retry_interval'];
         $config .= "\n\talias\t". $host['alias'] ."\n\tcontacts\t". $ctmp ."\n\tuse\tinternet-server\n}\n";
     }
     file_put_contents('/etc/nagios3/' .$dir. '/hosts.cfg', $config);
@@ -63,8 +67,8 @@ function populate($dir) {
         foreach ($srvs as $cc => $s) {
             $config .= "define service {\n\tcheck_command\t". $cc ."\n\tservice_description\t". $s['descr'];
             $config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
-            $config .= "\n\tnormal_check_interval\t". $etc['normal_check_interval'];
-            $config .= "\n\tretry_check_interval\t". $etc['retry_check_interval'];
+            $config .= "\n\tcheck_interval\t". $etc['check_interval'];
+            $config .= "\n\tretry_interval\t". $etc['retry_interval'];
             $config .= "\n\thost_name\t". $host ."\n\tcontacts\t". $ctmp ."\n\tuse\tgeneric-service\n}\n";
         }
     }
