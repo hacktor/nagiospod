@@ -1,0 +1,27 @@
+#!/bin/sh
+
+totsrv=$1
+totsrvok=$2
+totsrvwarn=$3
+totsrvunkn=$4
+totsrvcrit=$5
+
+if [ $totsrv -eq $totsrvok ]; then
+        echo "All services OK"
+        exit 0
+fi
+if [ $totsrv -eq $totsrvcrit ]; then
+    echo All services CRITICAL
+    exit 2
+fi
+if [ $totsrvcrit -gt 0 ]; then
+        echo $totsrvcrit services CRITICAL
+        exit 0
+fi
+if [ $totsrvwarn -gt 0 ]; then
+        echo $totsrvwarn services WARNING
+        exit 0
+fi
+echo $totsrvunkn services UNKNOWN
+exit 3
+
