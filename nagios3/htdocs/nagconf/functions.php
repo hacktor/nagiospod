@@ -59,6 +59,7 @@ function populate($dir) {
         $config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
         $config .= "\n\tcheck_interval\t". $etc['check_interval'];
         $config .= "\n\tretry_interval\t". $etc['retry_interval'];
+        $config .= "\n\tnotification_interval\t". $etc['notification_interval'];
         $config .= "\n\talias\t". $host['alias'] ."\n\tcontacts\t". $ctmp ."\n\tuse\tinternet-server\n}\n";
     }
     file_put_contents('/etc/nagios3/' .$dir. '/hosts.cfg', $config);
@@ -69,6 +70,7 @@ function populate($dir) {
             $config .= "\n\tmax_check_attempts\t". $etc['max_check_attempts'];
             $config .= "\n\tcheck_interval\t". $etc['check_interval'];
             $config .= "\n\tretry_interval\t". $etc['retry_interval'];
+            $config .= "\n\tnotification_interval\t". $etc['notification_interval'];
             $config .= "\n\thost_name\t". $host ."\n\tcontacts\t". $ctmp ."\n\tuse\tgeneric-service\n}\n";
         }
     }
