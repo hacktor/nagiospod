@@ -26,7 +26,7 @@ function normaltext($text) {
 }
 
 function ishost($text) {
-    return preg_match('/^a-z0-9\.\-$/', $text);
+    return preg_match('/^[a-zA-Z0-9\.\-]*$/', $text);
 }
 
 function save_htpasswd($user,$pw) {
