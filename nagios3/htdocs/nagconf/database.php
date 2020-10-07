@@ -109,6 +109,7 @@ function addhost($db,$name,$alias,$address) {
             $error[] = "insert of $name into hosts table failed";
         } else {
             $hosts[$name] = [ 'name' => $name, 'address' => $address, 'alias' => $alias ];
+            return true;
         }
     }
 }
