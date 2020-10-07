@@ -24,13 +24,16 @@ if (isset($_POST['addhost']) and isset($_POST['hostname']) and isset($_POST['hos
             $a1 = (isset($_POST['arg1']) ? $_POST['arg1'] : '');
             $a2 = (isset($_POST['arg2']) ? $_POST['arg2'] : '');
             $a3 = (isset($_POST['arg3']) ? $_POST['arg3'] : '');
-            addhost($db,$_POST['hostname'],$_POST['hostalias'],$_POST['hostaddress']);
-            addservice2host($db,$_POST['hostname'],$cc['name'],$_POST['descr'],$cc['argnr'],$a1,$a2,$a3,$cc['id']);
+            if (addhost($db,$_POST['hostname'],$_POST['hostalias'],$_POST['hostaddress'])) {
+                addservice2host($db,$_POST['hostname'],$cc['name'],$_POST['descr'],$cc['argnr'],$a1,$a2,$a3,$cc['id']);
+            } else {
+                $error[] = "Not adding service as add host has failed";
+            }
         } else {
             $ccargs = $cc;
             $hostargs = $_POST['hostname'];
-	    $hostalias = $_POST['hostalias'];
-	    $hostaddress = $_POST['hostaddress'];
+            $hostalias = $_POST['hostalias'];
+            $hostaddress = $_POST['hostaddress'];
         }
     }
 }
@@ -47,8 +50,8 @@ if (isset($_POST['addsrvtohost'])) {
         # need to get description and parameters
         $ccargs = $checkcommands[$ccid];
         $hostargs = $host;
-	$hostalias = $hosts[$host]['alias'];
-	$hostaddress = $hosts[$host]['address'];
+        $hostalias = $hosts[$host]['alias'];
+        $hostaddress = $hosts[$host]['address'];
         $justsrv = true;
     }
 } elseif (isset($_POST['justsrv']) and isset($_POST['hostname']) and isset($_POST['ccid']) and isset($_POST['descr'])) {
