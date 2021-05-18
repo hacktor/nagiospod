@@ -159,7 +159,7 @@ function addcontact($db,$name,$email,$telephone) {
     global $error,$contacts;
     if (! preg_match('/^[A-Za-z0-9 ]+$/', $name)) {
         $error[] = "Name/description not accepted: ".$name." (only alphanumerics and spaces allowed)";
-    } elseif (! preg_match('/^[A-Za-z0-9\.\-]+\@[A-Za-z0-9]+\.[A-Za-z]+$/', $email)) {
+    } elseif (! preg_match('/^[A-Za-z0-9\.\-]+\@[A-Za-z0-9\.]+\.[A-Za-z]+$/', $email)) {
         $error[] = "Email Address not accepted: ".$email;
     } elseif (! normaltext($telephone)) {
         $error[] = "Telephone not accepted: ".$telephone." (only numbers and a starting '+' allowed)";
