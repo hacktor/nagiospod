@@ -69,7 +69,7 @@ INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, ar
 INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, arg3_descr, descr) VALUES ('check_nt_cpu', '$USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v CPULOAD -l 5,80,90', 0, NULL, NULL, NULL, 'Check Windows agent CPULOAD');
 INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, arg3_descr, descr) VALUES ('check_nt_mem', '$USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v MEMUSE -w 80 -c 90', 0, NULL, NULL, NULL, 'Check Windows agent MEMUSE');
 INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, arg3_descr, descr) VALUES ('check_nt_disk', '$USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v USEDDISKSPACE -w 80 -c 90', 0, NULL, NULL, NULL, 'Check Windows agent USEDDISKSPACE');
-INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, arg3_descr, descr) VALUES ('check_nt', '$USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v "$ARG1$"', 1, "Name of nsclient service to check", NULL, NULL, 'Check by Windows agent');
+INSERT INTO checkcommands (name, command_line, argnr, arg1_descr, arg2_descr, arg3_descr, descr) VALUES ('check_nt_process', '$USER1$/check_nt -H $HOSTADDRESS$ -p 12489 -v PROCSTATE -l "$ARG1$"', 1, "Name of process to check (e.g. explorer.exe)", NULL, NULL, 'Check process by Windows agent');
 SQL;
 
 echo "Populating checkcommands table\n";
